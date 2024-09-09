@@ -12,17 +12,15 @@ interface Job {
 }
 
 export default function HomeClient() {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [minSalary, setMinSalary] = useState<string>("100");
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
+  const [categories, setCategories] = useState<string[]>([]); //カテゴリ
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]); //チェックボックス用
+  const [minSalary, setMinSalary] = useState<string>("100"); //最低給与
+  const [jobs, setJobs] = useState<Job[]>([]); //求人情報
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]); //フィルター適用後の求人情報用
 
   useEffect(() => {
-    // ここで実際のデータフェッチングを行う
     const fetchJobs = async () => {
       try {
-        // API呼び出しの例（実際のエンドポイントに置き換えてください）
         const response = await fetch('/api/jobs');
         const data: Job[] = await response.json();
         setJobs(data);
@@ -36,6 +34,7 @@ export default function HomeClient() {
     fetchJobs();
   }, []);
 
+  //フィルター条件変更時に求人リスト更新
   useEffect(() => {
     const filtered = jobs.filter(job => 
       (selectedCategories.length === 0 || selectedCategories.includes(job.category)) &&
@@ -44,10 +43,11 @@ export default function HomeClient() {
     setFilteredJobs(filtered);
   }, [jobs, selectedCategories, minSalary]);
 
+  //カテゴリ変更用
   const handleCategoryChange = (newCategories: string[]) => {
     setSelectedCategories(newCategories);
   };
-
+  //最低給与変更
   const handleSalaryChange = (newSalary: string) => {
     setMinSalary(newSalary);
   };
