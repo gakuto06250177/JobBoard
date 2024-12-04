@@ -32,6 +32,10 @@ const JobForm: React.FC = () => {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to add job');
       }
+      if (Number(salary) < 100) {
+        alert('年収は100万円以上で入力してください');
+        return;
+      }
       const data = await response.json();
       console.log('Success:', data);
       setTitle('');

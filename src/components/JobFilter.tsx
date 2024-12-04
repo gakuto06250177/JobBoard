@@ -39,6 +39,7 @@ const JobFilter: React.FC<JobFilterProps> = ({ categories, onCategoryChange, onS
 
       <h2 className="text-lg font-bold mt-6 mb-4 text-gray-700">年収</h2>
       <select className="w-full bg-white border p-2 text-gray-700" onChange={(e) => onSalaryChange(e.target.value)}>
+        <option value="100">100万円以上</option>
         <option value="200">200万円以上</option>
         <option value="300">300万円以上</option>
         <option value="400">400万円以上</option>
